@@ -1,0 +1,92 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Station {
+  id           String   @id @default(uuid())
+  name         String
+  address      String
+  countryCode  String   @map("country_code")
+  timezone     String?
+  createdAt    DateTime @default(now()) @map("created_at")
+  updatedAt    DateTime @updatedAt @map("updated_at")
+
+  originTrips      Trip[] @relation("OriginStation")
+  destinationTrips Trip[] @relation("DestinationStation")
+
+  @@map("stations")
+}
+
+model Trip {
+  id               String   @id @default(uuid())
+  originId         String   @map("origin_id")
+  destinationId    String   @map("destination_id")
+  departureTime    DateTime @map("departure_time")
+  arrivalTime      DateTime @map("arrival_time")
+  operator         String
+  price            Float
+  bicyclesAllowed  Boolean  @default(false) @map("bicycles_allowed")
+  dogsAllowed      Boolean  @default(false) @map("dogs_allowed")
+  createdAt        DateTime @default(now()) @map("created_at")
+  updatedAt        DateTime @updatedAt @map("updated_at")
+
+  origin      Station   @relation("OriginStation", fields: [originId], references: [id])
+  destination Station   @relation("DestinationStation", fields: [destinationId], references: [id])
+  bookings    Booking[]
+
+  @@map("trips")
+}
+
+model User {
+  id            String    @id @default(uuid())
+  email         String    @unique
+  name          String?
+  oauthProvider String?   @map("oauth_provider")
+  oauthId       String?   @map("oauth_id")
+  createdAt     DateTime  @default(now()) @map("created_at")
+  updatedAt     DateTime  @updatedAt @map("updated_at")
+
+  bookings Booking[]
+
+  @@map("users")
+}
+
+model Booking {
+  id            String    @id @default(uuid())
+  tripId        String    @map("trip_id")
+  userId        String    @map("user_id")
+  passengerName String    @map("passenger_name")
+  hasBicycle    Boolean   @default(false) @map("has_bicycle")
+  hasDog        Boolean   @default(false) @map("has_dog")
+  status        String    @default("pending")
+  expiresAt     DateTime? @map("expires_at")
+  createdAt     DateTime  @default(now()) @map("created_at")
+  updatedAt     DateTime  @updatedAt @map("updated_at")
+
+  trip     Trip      @relation(fields: [tripId], references: [id])
+  user     User      @relation(fields: [userId], references: [id])
+  payments Payment[]
+
+  @@map("bookings")
+}
+
+model Payment {
+  id            String   @id @default(uuid())
+  bookingId     String   @map("booking_id")
+  amount        Float
+  currency      String
+  sourceType    String   @map("source_type")
+  sourceDetails String?  @map("source_details")
+  status        String   @default("pending")
+  createdAt     DateTime @default(now()) @map("created_at")
+  updatedAt     DateTime @updatedAt @map("updated_at")
+
+  booking Booking @relation(fields: [bookingId], references: [id])
+
+  @@map("payments")
+}
