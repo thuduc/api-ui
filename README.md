@@ -1,5 +1,5 @@
 # Proof-of-concept: API and UI generation using Claude Code
-This POC is to evaluate Claude Code (an agentic coding tool from Anthropic: https://www.anthropic.com/claude-code) for its ability to create a fully working Web UI and Rest API, if given sufficient requirements.
+This POC is to evaluate Claude Code (an agentic coding tool from Anthropic: https://www.anthropic.com/claude-code), known for its ability to create a fully working Web UI and Rest API, if given sufficient requirements.
 
 The API requirements comes from the openapi.json file for the sample Train Travel application (https://bump.sh/blog/modern-openapi-petstore-replacement/).
 
