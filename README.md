@@ -1,20 +1,20 @@
-# Proof-of-concept: API and UI generation using Claude Code
-This POC is to evaluate Claude Code (an agentic coding tool from Anthropic: https://www.anthropic.com/claude-code), known for its ability to create a fully working Web UI and Rest API, if given sufficient requirements.
+## GenAI Proof of Concept: API and UI generation using Claude Code
 
-The API requirements comes from the openapi.json file for the sample Train Travel application (https://bump.sh/blog/modern-openapi-petstore-replacement/).
+The purpose of this proof of concept is to find out if an LLM can generate a fully functionaly API and UI by analyzing an OpenAPI specification to come up with an implementation plan for both the API and UI. The example application we will be using based on the OpenAPI spec for the sample Train Travel application (https://bump.sh/blog/modern-openapi-petstore-replacement/). For those who are familiar with the old Java PetStore sample application, this is its modern replacement.
 
-For the UI requirements, we asked Claude Code to derive them from openapi.json. Normally UI mocks (or screenshots) would be provided.
-
-#### POC Results
-Claude Code + Opus 4 LLM were able to generate a fully functional API and UI based on just an openapi specification
+### LLM & AI Tool
+* LLM used: Claude Opus 4 (best coding LLM) - https://www.anthropic.com/claude/opus
+* AI tool used: Claude Code (best coding CLI due to its integration with Clause 4 LLMs) - https://www.anthropic.com/claude-code
 
 #### Development Process: 
-* Step 1 - develop an openapi specification for the Rest API. Either the developer or the LLM can do this.
-* Step 2 - use a coding LLM to analyze an openapi specification, then generates a comprehensive implementation plan for implementing both the API and UI. We used Anthropic's Claude Opus 4 LLM for our coding LLM due to its advanced agentic coding ability.
-* Step 3 - use this implementation plan (see API_UI_IMPLEMENTATION_PLAN.md) in Claude Code (and Claude Opus 4 LLM) to implement all tasks in all API phases defined in the plan.
-* Step 4 - use this implementation plan (see API_UI_IMPLEMENTATION_PLAN.md) in Claude Code (and Claude Opus 4 LLM) to implement all tasks in all UI phases defined in the plan.
+* Step 1 - develop an openapi specification for the Rest API. Either the developer or the LLM can do this. In our PoC, we will be using an existing OpenAPI spec.
+* Step 2 - use a coding LLM to analyze an openapi specification, then to generate a comprehensive implementation plan for implementing both the API and UI. We will use Anthropic's Claude Opus 4 LLM for our coding LLM due to its advanced agentic coding ability.
+* Step 3 - use this implementation plan (see [API_UI_IMPLEMENTATION_PLAN.md](API_UI_IMPLEMENTATION_PLAN.md)) in Claude Code (and Claude Opus 4 LLM) to implement all tasks in all API phases defined in the plan.
+* Step 4 - use this implementation plan (see [API_UI_IMPLEMENTATION_PLAN.md](API_UI_IMPLEMENTATION_PLAN.md)) in Claude Code (and Claude Opus 4 LLM) to implement all tasks in all UI phases defined in the plan.
 
-The API & UI implementation effort took Claude Code about 3 hours to complete.
+#### POC Results
+* The API & UI implementation effort took Claude Code about 3 hours to complete.
+* Claude Code + Opus 4 LLM were able to generate a fully functional API and UI based on just an openapi specification
 
 ## Running the app
 See CLAUDE.md
